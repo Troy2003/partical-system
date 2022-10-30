@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const particalsArray = [];
+let hue = 0;
 
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
@@ -24,7 +25,7 @@ class Partical {
         if (this.size > 0.2) this.size -= 0.1;
     }
     draw() {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = `hsl(${hue} , 100% , 50%)`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -59,9 +60,10 @@ const handleParticals = () => {
 const animate = () => {
     ctx.fillStyle = "white";
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = `rgba(0,0,0,0.1)`
+    ctx.fillStyle = `rgba(0,0,0,0.2)`
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     handleParticals();
+    hue++;
     requestAnimationFrame(animate);
 }
 animate();
