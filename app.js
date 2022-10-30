@@ -10,9 +10,9 @@ window.addEventListener('resize', () => {
 })
 
 class Partical {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
         this.size = Math.random() * 5 + 1;
         this.speedX = Math.random() * 2 - 1;
         this.speedY = Math.random() * 2 - 1;
@@ -20,43 +20,33 @@ class Partical {
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
+        //SHRINK PARTICALS
+        if (this.size > 0.2) this.size -= 0.1;
     }
     draw() {
         ctx.fillStyle = 'white';
         ctx.beginPath();
-        // ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 }
 
-class Effect {
-    constructor() {
-
-    }
-
-    draw() {
-
-    }
-
-    update() {
-
-    }
-}
-
-window.addEventListener('mousemove', (event) => {})
-
-const init = () => {
+window.addEventListener('click', (event) => {
     for (let i = 0; i < 100; i++) {
-        particalsArray.push(new Partical());
+        particalsArray.push(new Partical(event.x, event.y));
     }
-}
-init();
+})
 
 const handleParticals = () => {
     for (let i = 0; i < particalsArray.length; i++) {
         particalsArray[i].update();
         particalsArray[i].draw();
+
+        //HIDE A PARTICALS
+        if (particalsArray[i].size <= 0.3) {
+            particalsArray.splice(i, 1);
+            i--;
+        }
     }
 }
 const animate = () => {
