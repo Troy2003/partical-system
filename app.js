@@ -32,10 +32,17 @@ class Partical {
 }
 
 window.addEventListener('click', (event) => {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
         particalsArray.push(new Partical(event.x, event.y));
     }
-})
+});
+
+window.addEventListener('mousemove', (event) => {
+    for (let i = 0; i < 10; i++) {
+        particalsArray.push(new Partical(event.x, event.y));
+    }
+});
+
 
 const handleParticals = () => {
     for (let i = 0; i < particalsArray.length; i++) {
